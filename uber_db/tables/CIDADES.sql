@@ -1,0 +1,11 @@
+USE uber_db;
+
+CREATE TABLE cidades (
+cidade_id INT IDENTITY(1, 1) PRIMARY KEY,
+nome NVARCHAR(100) NOT NULL,
+estado CHAR(2) NOT NULL,
+pais CHAR(3) NOT NULL DEFAULT('BRA'),
+fuso VARCHAR(40) NOT NULL DEFAULT ('America/Sao Paulo'),
+ativa BIT NOT NULL DEFAULT (1)
+);
+

@@ -27,14 +27,14 @@ END
 BEGIN
 DECLARE @length INT
 DECLARE @status VARCHAR(25)
-SELECT @status = ''
+SELECT @status = 'aprovada'
 
-SET @length = CAST(RAND() * 25 AS INT)
-WHILE @length <> 0 
-BEGIN 
-	SELECT @status = @status + CHAR(CAST(RAND() * 96 AS INT))
-	SET @length = @length - 1
-END
+--SET @length = CAST(RAND() * 25 AS INT)
+--WHILE @length <> 0 
+--BEGIN 
+--	SELECT @status = @status + CHAR(CAST(RAND() * 96 AS INT))
+--	SET @length = @length - 1
+--END
 END
 
 BEGIN

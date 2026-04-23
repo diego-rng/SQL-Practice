@@ -11,6 +11,7 @@ with original as (
 ) 
 select 
     usuario_id,
+    data_publicacao,
     avg(time_since_last_post) as user_avg
 from original
 group by usuario_id

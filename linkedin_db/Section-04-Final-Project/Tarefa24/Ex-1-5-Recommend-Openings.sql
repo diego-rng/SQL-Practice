@@ -42,7 +42,7 @@ begin
                         select 
                             v.vaga_id,
                             -- adds 30 per ability in common
-                            cast((select count(*) * 30 from vaga_habilidades vh where v.vaga_id = vh.vaga_id) + (
+                            cast((select (count(*) * 30) from vaga_habilidades vh where v.vaga_id = vh.vaga_id and vh.habilidade_id in (select abilities from @abilities)) + (
                                 --adds 20 if same city as user
                             case 
                                 when (select e.cidade from empresas e join vagas vi on e.empresa_id = vi.empresa_id where e.cidade = @city and vi.vaga_id = v.vaga_id ) is null
@@ -59,18 +59,21 @@ begin
                             ) + (
                                 -- adds 10 if user has a connection within the company
                                 case 
-                                    when exists (
-                                        select conexao_id 
+                                    when (select count(*)
                                             from conexoes ci 
-                                        join candidaturas cii on cii.usuario_id = ci.usuario_destino or cii.usuario_id = ci.usuario_origem 
-                                            where ci.usuario_destino = @usuario_id or ci.usuario_origem = @usuario_id and cii.status like '%aprovada%' 
-                                    ) 
-                                        then 10
-                                    else 0
-                                end
-                            ) as int) as score
+                                            join candidaturas cii on cii.usuario_id = ci.usuario_destino 
+                                                or cii.usuario_id = ci.usuario_origem 
+                                            where ci.usuario_destino = @usuario_id 
+                                                or ci.usuario_origem = @usuario_id 
+                                                and cii.status like '%aprovada%')   
+                                                > 0 then 10
+                                                else 0
+                                end                             
+                            ) 
+                            
+                             as int) as score
                         from vagas v
-                        where v.ativa = 1
+                        where v.ativa = 1 and not exists (select vaga_id from candidaturas where vaga_id = v.vaga_id and usuario_id = @usuario_id)
                     end
 
                     select top (@top_n) 
@@ -84,7 +87,7 @@ begin
                     from @scores s 
                         join vagas v on v.vaga_id = s.vaga_id
                         join empresas e on v.empresa_id = e.empresa_id
-                    order by score desc
+                    order by s.score desc
                      
         commit transaction;
     end try

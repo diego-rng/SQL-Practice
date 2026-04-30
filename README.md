@@ -8,7 +8,7 @@ This project requires Docker Desktop version 4.68.0 or higher, any IDE capable o
 
 ## Setup
 
-To start setting up the project for your own use, start by opening any CLI (Bash is recommended) and input the following:
+To set up the project for your own use, start by opening any CLI (Bash is recommended) and input the following:
 
 ```
 git clone https://github.com/diego-rng/SQL-Practice.git
@@ -37,8 +37,8 @@ docker ps
 And you should see something along the lines of: 
 
 ```
-CONTAINER ID   IMAGE                                        COMMAND                  CREATED        STATUS       PORTS                                         NAMES
-11b84f54f437   mcr.microsoft.com/mssql/server:2022-latest   "/opt/mssql/bin/laun…"   1 minute ago   Up 3 hours   0.0.0.0:1433->1433/tcp, [::]:1433->1433/tcp   sqlserver
+CONTAINER ID   IMAGE                                        COMMAND                  CREATED        STATUS        PORTS                                         NAMES
+11b84f54f437   mcr.microsoft.com/mssql/server:2022-latest   "/opt/mssql/bin/laun…"   1 minute ago   Up 1 second   0.0.0.0:1433->1433/tcp, [::]:1433->1433/tcp   sqlserver
 
 ```
 
@@ -63,7 +63,7 @@ Successfully copied 7.55MB to sqlserver:var/opt/mssql/backups/in/linkedin_db_ful
 
 After this, let's swap to your IDE of choice.
 
-For this example, I will be using VSCode with the MSSQL extensions.
+For this example, I will be using VSCode with the MSSQL recommended extensions.
 
 To connect to the database, find the SQL Server Badge on the sidebar, hover the 'Connections' tab and click on Add Connection. 
 

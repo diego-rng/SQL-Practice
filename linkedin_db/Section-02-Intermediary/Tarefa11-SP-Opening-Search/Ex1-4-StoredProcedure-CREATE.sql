@@ -53,9 +53,16 @@ begin
         )
             throw 50001, 'Not found', 1;
 
-        select v.titulo, e.nome, s.nome,
-               e.cidade, v.modalidade, v.nivel,
-               v.salario_min, v.salario_max, v.data_publicacao
+        select 
+            v.titulo, 
+            e.nome as empresa, 
+            s.nome as setor,
+            e.cidade,
+            v.modalidade,
+            v.nivel,
+            v.salario_min, 
+            v.salario_max, 
+            v.data_publicacao
         from vagas v
         join empresas e on v.empresa_id = e.empresa_id
         join setores s on e.setor_id = s.setor_id

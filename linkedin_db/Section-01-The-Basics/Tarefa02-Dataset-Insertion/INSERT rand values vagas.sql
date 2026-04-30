@@ -92,21 +92,21 @@ END
 BEGIN
 DECLARE @data_publicacao DATETIME2
 
-SELECT @data_publicacao = DATEADD(DAY, CAST(RAND() * DATEDIFF(DAY, '2020-01-01', '2024-01-01') AS INT), '2020-01-01')
+SELECT @data_publicacao = DATEADD(DAY, CAST(RAND() * DATEDIFF(DAY, '2020-01-01', getdate()) AS INT), '2020-01-01')
 
 END
 
 BEGIN 
 DECLARE @data_expiracao DATE
 
-SELECT @data_expiracao = DATEADD(DAY, CAST(RAND() * DATEDIFF(DAY, '2020-01-01', '2025-01-01') AS INT), '2020-01-01')
+SELECT @data_expiracao = DATEADD(DAY, CAST(RAND() * DATEDIFF(DAY, @data_publicacao, '2027-12-31') AS INT), @data_publicacao)
 
 END
 
 BEGIN
 DECLARE @ativa BIT
 
-SELECT @ativa = FLOOR(RAND() * 2)
+SELECT @ativa = 1
 
 END
 
